@@ -1,0 +1,17 @@
+PREFIX : <http://www.semanticweb.org/videogame-ontology#>
+PREFIX schema: <https://schema.org/>
+
+# Q6 — Games produced by each developer using the :develops inverse property
+# :develops is the owl:inverseOf :developedBy; querying it directly demonstrates
+# that the reasoner has materialised both directions of the inverse pair.
+
+SELECT DISTINCT ?devName ?gameName ?score
+WHERE {
+    ?dev a :Developer ;
+         schema:name ?devName ;
+         :develops ?game .
+    ?game schema:name ?gameName .
+    OPTIONAL { ?game :metacriticScore ?score }
+}
+ORDER BY ?devName DESC(?score)
+LIMIT 25

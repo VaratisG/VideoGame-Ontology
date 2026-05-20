@@ -1,0 +1,307 @@
+@prefix : <http://www.semanticweb.org/videogame-ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <https://schema.org/> .
+@base <http://www.semanticweb.org/videogame-ontology> .
+
+<http://www.semanticweb.org/videogame-ontology>
+    a owl:Ontology ;
+    rdfs:label "Video Game Ontology" ;
+    rdfs:comment "An ontology for describing video games, developers, publishers, platforms, genres and related entities, extending schema.org." .
+
+#################################################################
+#    Classes
+#################################################################
+
+### VideoGame
+:VideoGame a owl:Class ;
+    rdfs:subClassOf schema:VideoGame ;
+    rdfs:label "Video Game" ;
+    rdfs:comment "A video game, extending schema:VideoGame." ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :hasGenre ;
+        owl:minCardinality 1
+    ] ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :availableOn ;
+        owl:minCardinality 1
+    ] .
+
+### Developer
+:Developer a owl:Class ;
+    rdfs:subClassOf schema:Organization ;
+    rdfs:label "Developer" ;
+    rdfs:comment "A company or individual that developed a video game." .
+
+### Publisher
+:Publisher a owl:Class ;
+    rdfs:subClassOf schema:Organization ;
+    rdfs:label "Publisher" ;
+    rdfs:comment "A company that published a video game." .
+
+### Creator
+:Creator a owl:Class ;
+    rdfs:subClassOf schema:Person ;
+    rdfs:label "Creator" ;
+    rdfs:comment "A person who contributed creatively to a video game." .
+
+### CreatorRole
+:CreatorRole a owl:Class ;
+    rdfs:label "Creator Role" ;
+    rdfs:comment "The role a creator played in a game e.g. writer, director, composer." .
+
+### Genre
+:Genre a owl:Class ;
+    rdfs:label "Genre" ;
+    rdfs:comment "A category describing the gameplay style e.g. Action, RPG, Indie." .
+
+### Platform
+:Platform a owl:Class ;
+    rdfs:label "Platform" ;
+    rdfs:comment "A specific platform a game runs on e.g. PlayStation 5, PC." .
+
+### ParentPlatform
+:ParentPlatform a owl:Class ;
+    rdfs:label "Parent Platform" ;
+    rdfs:comment "A high-level platform family e.g. PlayStation, Xbox, PC." .
+
+### Store
+:Store a owl:Class ;
+    rdfs:label "Store" ;
+    rdfs:comment "A digital store where the game can be purchased e.g. Steam, Epic Games." .
+
+### Tag
+:Tag a owl:Class ;
+    rdfs:label "Tag" ;
+    rdfs:comment "A user-defined tag describing a game characteristic e.g. Singleplayer, Co-op." .
+
+### AggregateRating
+:AggregateRating a owl:Class ;
+    rdfs:subClassOf schema:AggregateRating ;
+    rdfs:label "Aggregate Rating" ;
+    rdfs:comment "The overall rating of a game based on user reviews." .
+
+### EsrbRating
+:EsrbRating a owl:Class ;
+    rdfs:label "ESRB Rating" ;
+    rdfs:comment "The age rating assigned by the ESRB e.g. Everyone, Teen, Mature." .
+
+### Inferred subclasses using equivalentClass
+:ConsoleGame a owl:Class ;
+    rdfs:label "Console Game" ;
+    rdfs:comment "A game inferred to be a console game because it is available on a console parent platform." ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (
+            :VideoGame
+            [
+                a owl:Restriction ;
+                owl:onProperty :hasParentPlatform ;
+                owl:someValuesFrom :ParentPlatform
+            ]
+        )
+    ] .
+
+:IndieGame a owl:Class ;
+    rdfs:label "Indie Game" ;
+    rdfs:comment "A game inferred to be indie because it has the Indie genre." ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (
+            :VideoGame
+            [
+                a owl:Restriction ;
+                owl:onProperty :hasGenre ;
+                owl:hasValue :genre_51
+            ]
+        )
+    ] .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+:developedBy a owl:ObjectProperty ;
+    rdfs:label "developed by" ;
+    rdfs:domain :VideoGame ;
+    rdfs:range :Developer ;
+    owl:inverseOf :develops .
+
+:develops a owl:ObjectProperty ;
+    rdfs:label "develops" ;
+    rdfs:domain :Developer ;
+    rdfs:range :VideoGame .
+
+:publishedBy a owl:ObjectProperty ;
+    rdfs:label "published by" ;
+    rdfs:domain :VideoGame ;
+    rdfs:range :Publisher ;
+    owl:inverseOf :publishes .
+
+:publishes a owl:ObjectProperty ;
+    rdfs:label "publishes" ;
+    rdfs:domain :Publisher ;
+    rdfs:range :VideoGame .
+
+:createdBy a owl:ObjectProperty ;
+    rdfs:label "created by" ;
+    rdfs:domain :VideoGame ;
+    rdfs:range :Creator ;
+    owl:inverseOf :created .
+
+:created a owl:ObjectProperty ;
+    rdfs:label "created" ;
+    rdfs:domain :Creator ;
+    rdfs:range :VideoGame .
+
+:hasRole a owl:ObjectProperty ;
+    rdfs:label "has role" ;
+    rdfs:domain :Creator ;
+    rdfs:range :CreatorRole .
+
+:hasGenre a owl:ObjectProperty ;
+    rdfs:label "has genre" ;
+    rdfs:domain :VideoGame ;
+    rdfs:range :Genre ;
+    owl:inverseOf :isGenreOf .
+
+:isGenreOf a owl:ObjectProperty ;
+    rdfs:label "is genre of" ;
+    rdfs:domain :Genre ;
+    rdfs:range :VideoGame .
+
+:availableOn a owl:ObjectProperty ;
+    rdfs:label "available on" ;
+    rdfs:domain :VideoGame ;
+    rdfs:range :Platform ;
+    owl:inverseOf :hosts .
+
+:hosts a owl:ObjectProperty ;
+    rdfs:label "hosts" ;
+    rdfs:domain :Platform ;
+    rdfs:range :VideoGame .
+
+:onParentPlatform a owl:ObjectProperty ;
+    rdfs:label "on parent platform" ;
+    rdfs:domain :Platform ;
+    rdfs:range :ParentPlatform ;
+    owl:inverseOf :includesPlatform .
+
+:includesPlatform a owl:ObjectProperty ;
+    rdfs:label "includes platform" ;
+    rdfs:domain :ParentPlatform ;
+    rdfs:range :Platform .
+
+:hasParentPlatform a owl:ObjectProperty ;
+    rdfs:label "has parent platform" ;
+    rdfs:domain :VideoGame ;
+    rdfs:range :ParentPlatform .
+
+:soldAt a owl:ObjectProperty ;
+    rdfs:label "sold at" ;
+    rdfs:domain :VideoGame ;
+    rdfs:range :Store ;
+    owl:inverseOf :sells .
+
+:sells a owl:ObjectProperty ;
+    rdfs:label "sells" ;
+    rdfs:domain :Store ;
+    rdfs:range :VideoGame .
+
+:hasTag a owl:ObjectProperty ;
+    rdfs:label "has tag" ;
+    rdfs:domain :VideoGame ;
+    rdfs:range :Tag ;
+    owl:inverseOf :taggedTo .
+
+:taggedTo a owl:ObjectProperty ;
+    rdfs:label "tagged to" ;
+    rdfs:domain :Tag ;
+    rdfs:range :VideoGame .
+
+:hasRating a owl:ObjectProperty ;
+    rdfs:label "has rating" ;
+    rdfs:domain :VideoGame ;
+    rdfs:range :AggregateRating .
+
+:hasEsrbRating a owl:ObjectProperty ;
+    rdfs:label "has ESRB rating" ;
+    rdfs:domain :VideoGame ;
+    rdfs:range :EsrbRating .
+
+#################################################################
+#    Datatype Properties
+#################################################################
+
+:slug a owl:DatatypeProperty ;
+    rdfs:label "slug" ;
+    rdfs:comment "A URL-friendly identifier for an entity, unique within its own type." ;
+    rdfs:range xsd:string .
+
+:metacriticScore a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "metacritic score" ;
+    rdfs:domain :VideoGame ;
+    rdfs:range xsd:integer .
+
+:playtime a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "playtime" ;
+    rdfs:comment "Average playtime in hours." ;
+    rdfs:domain :VideoGame ;
+    rdfs:range xsd:integer .
+
+:ratingsCount a owl:DatatypeProperty ;
+    rdfs:label "ratings count" ;
+    rdfs:domain :VideoGame ;
+    rdfs:range xsd:integer .
+
+:gamesCount a owl:DatatypeProperty ;
+    rdfs:label "games count" ;
+    rdfs:range xsd:integer .
+
+:yearStart a owl:DatatypeProperty ;
+    rdfs:label "year start" ;
+    rdfs:domain :Platform ;
+    rdfs:range xsd:integer .
+
+:yearEnd a owl:DatatypeProperty ;
+    rdfs:label "year end" ;
+    rdfs:domain :Platform ;
+    rdfs:range xsd:integer .
+
+:storeDomain a owl:DatatypeProperty ;
+    rdfs:label "store domain" ;
+    rdfs:domain :Store ;
+    rdfs:range xsd:string .
+
+:language a owl:DatatypeProperty ;
+    rdfs:label "language" ;
+    rdfs:domain :Tag ;
+    rdfs:range xsd:string .
+
+schema:name a owl:DatatypeProperty ;
+    rdfs:label "name" ;
+    rdfs:range xsd:string .
+
+schema:datePublished a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "date published" ;
+    rdfs:domain :VideoGame ;
+    rdfs:range xsd:date .
+
+schema:ratingValue a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "rating value" ;
+    rdfs:domain :AggregateRating ;
+    rdfs:range xsd:float .
+
+#################################################################
+#    Individuals
+#################################################################
+
+### :genre_51 — the Indie genre individual, matches the IRI generated by the RML mapping
+:genre_51 a owl:NamedIndividual , :Genre ;
+    schema:name "Indie" ;
+    :slug "indie" .

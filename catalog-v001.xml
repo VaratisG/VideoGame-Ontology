@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri id="Videogame SameAs" name="http://www.semanticweb.org/videogame-ontology-sameas" uri="sameAs_wikidata.ttl"/>
+    <uri id="Videogame Ontology" name="http://www.semanticweb.org/videogame-ontology" uri="videogame-ontology.ttl"/>
+</catalog>

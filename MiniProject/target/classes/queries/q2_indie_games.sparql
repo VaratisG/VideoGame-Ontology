@@ -1,0 +1,16 @@
+PREFIX : <http://www.semanticweb.org/videogame-ontology#>
+PREFIX schema: <https://schema.org/>
+
+# Q2 — Indie Games (INFERRED by OWL-Max reasoner)
+# Games are classified as :IndieGame automatically because they satisfy
+# the equivalentClass restriction: VideoGame AND (hasGenre value :genre_51)
+# :genre_51 is the named individual for the "Indie" genre.
+
+SELECT DISTINCT ?gameName ?score
+WHERE {
+    ?game a :IndieGame ;
+          schema:name ?gameName .
+    OPTIONAL { ?game :metacriticScore ?score }
+}
+ORDER BY DESC(?score)
+LIMIT 25

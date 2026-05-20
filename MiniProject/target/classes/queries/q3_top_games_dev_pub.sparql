@@ -1,0 +1,19 @@
+PREFIX : <http://www.semanticweb.org/videogame-ontology#>
+PREFIX schema: <https://schema.org/>
+
+# Q3 — Top-rated games with their developer and publisher
+# Demonstrates a multi-class join across VideoGame, Developer, Publisher
+# using the object properties :develops and :publishes.
+
+SELECT DISTINCT ?gameName ?devName ?pubName ?score
+WHERE {
+    ?game a :VideoGame ;
+          schema:name ?gameName ;
+          :metacriticScore ?score .
+    ?dev :develops ?game ;
+         schema:name ?devName .
+    ?pub :publishes ?game ;
+         schema:name ?pubName .
+}
+ORDER BY DESC(?score)
+LIMIT 25

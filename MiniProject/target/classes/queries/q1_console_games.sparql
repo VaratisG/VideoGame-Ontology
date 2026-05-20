@@ -1,0 +1,17 @@
+PREFIX : <http://www.semanticweb.org/videogame-ontology#>
+PREFIX schema: <https://schema.org/>
+
+# Q1 — Console Games (INFERRED by OWL-Max reasoner)
+# Games are classified as :ConsoleGame automatically because they satisfy
+# the equivalentClass restriction: VideoGame AND (hasParentPlatform some ParentPlatform)
+# Without reasoning enabled, this query returns no results.
+
+SELECT DISTINCT ?gameName ?parentPlatformName
+WHERE {
+    ?game a :ConsoleGame ;
+          schema:name ?gameName ;
+          :hasParentPlatform ?pp .
+    ?pp schema:name ?parentPlatformName .
+}
+ORDER BY ?gameName ?parentPlatformName
+LIMIT 25

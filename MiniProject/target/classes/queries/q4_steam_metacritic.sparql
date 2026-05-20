@@ -1,0 +1,18 @@
+PREFIX : <http://www.semanticweb.org/videogame-ontology#>
+PREFIX schema: <https://schema.org/>
+
+# Q4 — Games sold on Steam with Metacritic score above 80
+# Demonstrates object property traversal (:soldAt → :Store)
+# combined with a datatype FILTER on :metacriticScore.
+
+SELECT DISTINCT ?gameName ?score
+WHERE {
+    ?game a :VideoGame ;
+          schema:name ?gameName ;
+          :metacriticScore ?score ;
+          :soldAt ?store .
+    ?store schema:name "Steam" .
+    FILTER (?score > 80)
+}
+ORDER BY DESC(?score)
+LIMIT 25

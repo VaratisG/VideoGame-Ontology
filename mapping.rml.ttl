@@ -1,0 +1,469 @@
+@prefix rr:  <http://www.w3.org/ns/r2rml#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql:  <http://semweb.mmlab.be/ns/ql#> .
+@prefix :    <http://www.semanticweb.org/videogame-ontology#> .
+@prefix schema: <https://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# IRI convention: <ontology-base>#<type>_<id>
+# e.g.  :game_3498   :genre_4   :developer_405
+
+#  GENRE
+:GenreMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/genres_flat.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#genre_{id}" ;
+        rr:class :Genre
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate schema:name ;
+        rr:objectMap [ rml:reference "name" ; rr:datatype xsd:string ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :slug ;
+        rr:objectMap [ rml:reference "slug" ; rr:datatype xsd:string ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :gamesCount ;
+        rr:objectMap [ rml:reference "games_count" ; rr:datatype xsd:integer ]
+    ] .
+
+#  PLATFORM
+:PlatformMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/platforms_flat.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#platform_{id}" ;
+        rr:class :Platform
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate schema:name ;
+        rr:objectMap [ rml:reference "name" ; rr:datatype xsd:string ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :slug ;
+        rr:objectMap [ rml:reference "slug" ; rr:datatype xsd:string ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :yearStart ;
+        rr:objectMap [ rml:reference "year_start" ; rr:datatype xsd:integer ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :yearEnd ;
+        rr:objectMap [ rml:reference "year_end" ; rr:datatype xsd:integer ]
+    ] .
+
+#  PARENT PLATFORM
+:ParentPlatformMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/parent_platforms_flat.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#parentPlatform_{id}" ;
+        rr:class :ParentPlatform
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate schema:name ;
+        rr:objectMap [ rml:reference "name" ; rr:datatype xsd:string ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :slug ;
+        rr:objectMap [ rml:reference "slug" ; rr:datatype xsd:string ]
+    ] .
+
+#  STORE
+:StoreMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/stores_flat.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#store_{id}" ;
+        rr:class :Store
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate schema:name ;
+        rr:objectMap [ rml:reference "name" ; rr:datatype xsd:string ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :slug ;
+        rr:objectMap [ rml:reference "slug" ; rr:datatype xsd:string ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :storeDomain ;
+        rr:objectMap [ rml:reference "domain" ; rr:datatype xsd:string ]
+    ] .
+
+#  TAG
+:TagMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/tags_flat.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#tag_{id}" ;
+        rr:class :Tag
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate schema:name ;
+        rr:objectMap [ rml:reference "name" ; rr:datatype xsd:string ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :slug ;
+        rr:objectMap [ rml:reference "slug" ; rr:datatype xsd:string ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :language ;
+        rr:objectMap [ rml:reference "language" ; rr:datatype xsd:string ]
+    ] .
+
+#  CREATOR ROLE
+:CreatorRoleMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/creator_roles_flat.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#role_{id}" ;
+        rr:class :CreatorRole
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate schema:name ;
+        rr:objectMap [ rml:reference "name" ; rr:datatype xsd:string ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :slug ;
+        rr:objectMap [ rml:reference "slug" ; rr:datatype xsd:string ]
+    ] .
+
+#  DEVELOPER
+:DeveloperMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/developers_flat.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#developer_{id}" ;
+        rr:class :Developer
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate schema:name ;
+        rr:objectMap [ rml:reference "name" ; rr:datatype xsd:string ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :slug ;
+        rr:objectMap [ rml:reference "slug" ; rr:datatype xsd:string ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :gamesCount ;
+        rr:objectMap [ rml:reference "games_count" ; rr:datatype xsd:integer ]
+    ] .
+
+#  PUBLISHER
+:PublisherMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/publishers_flat.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#publisher_{id}" ;
+        rr:class :Publisher
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate schema:name ;
+        rr:objectMap [ rml:reference "name" ; rr:datatype xsd:string ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :slug ;
+        rr:objectMap [ rml:reference "slug" ; rr:datatype xsd:string ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :gamesCount ;
+        rr:objectMap [ rml:reference "games_count" ; rr:datatype xsd:integer ]
+    ] .
+
+#  CREATOR
+:CreatorMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/creators_flat.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#creator_{id}" ;
+        rr:class :Creator
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate schema:name ;
+        rr:objectMap [ rml:reference "name" ; rr:datatype xsd:string ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :slug ;
+        rr:objectMap [ rml:reference "slug" ; rr:datatype xsd:string ]
+    ] .
+
+#  VIDEO GAME
+:GameMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/games_flat.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#game_{id}" ;
+        rr:class :VideoGame
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate schema:name ;
+        rr:objectMap [ rml:reference "name" ; rr:datatype xsd:string ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :slug ;
+        rr:objectMap [ rml:reference "slug" ; rr:datatype xsd:string ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate schema:datePublished ;
+        rr:objectMap [ rml:reference "released" ; rr:datatype xsd:date ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :metacriticScore ;
+        rr:objectMap [ rml:reference "metacritic" ; rr:datatype xsd:integer ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :playtime ;
+        rr:objectMap [ rml:reference "playtime" ; rr:datatype xsd:integer ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :ratingsCount ;
+        rr:objectMap [ rml:reference "ratings_count" ; rr:datatype xsd:integer ]
+    ] .
+
+#  AGGREGATE RATING  (one per game, IRI: rating_{game_id})
+:AggregateRatingMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/game_ratings.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#rating_{game_id}" ;
+        rr:class :AggregateRating
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate schema:ratingValue ;
+        rr:objectMap [ rml:reference "rating_value" ; rr:datatype xsd:float ]
+    ] .
+
+:GameHasRatingMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/game_ratings.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#game_{game_id}"
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :hasRating ;
+        rr:objectMap [
+            rr:template "http://www.semanticweb.org/videogame-ontology#rating_{game_id}"
+        ]
+    ] .
+
+#  ESRB RATING  (one individual per rating tier, IRI: esrb_{esrb_id})
+:EsrbRatingMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/game_esrb.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#esrb_{esrb_id}" ;
+        rr:class :EsrbRating
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate schema:name ;
+        rr:objectMap [ rml:reference "esrb_name" ; rr:datatype xsd:string ]
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :slug ;
+        rr:objectMap [ rml:reference "esrb_slug" ; rr:datatype xsd:string ]
+    ] .
+
+:GameHasEsrbMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/game_esrb.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#game_{game_id}"
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :hasEsrbRating ;
+        rr:objectMap [
+            rr:template "http://www.semanticweb.org/videogame-ontology#esrb_{esrb_id}"
+        ]
+    ] .
+
+#  RELATIONSHIP MAPS  (from join tables — no cross-source joins needed
+#  because both sides use the same id-based IRI template)
+# Game → Genre  (:hasGenre)
+:GameGenreMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/game_genres.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#game_{game_id}"
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :hasGenre ;
+        rr:objectMap [
+            rr:template "http://www.semanticweb.org/videogame-ontology#genre_{genre_id}"
+        ]
+    ] .
+
+# Game → Platform  (:availableOn)
+:GamePlatformMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/game_platforms.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#game_{game_id}"
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :availableOn ;
+        rr:objectMap [
+            rr:template "http://www.semanticweb.org/videogame-ontology#platform_{platform_id}"
+        ]
+    ] .
+
+# Game → ParentPlatform  (:hasParentPlatform — domain:VideoGame, triggers ConsoleGame inference)
+:GameParentPlatformMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/game_parent_platforms.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#game_{game_id}"
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :hasParentPlatform ;
+        rr:objectMap [
+            rr:template "http://www.semanticweb.org/videogame-ontology#parentPlatform_{parent_platform_id}"
+        ]
+    ] .
+
+# Game → Store  (:soldAt)
+:GameStoreMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/game_stores.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#game_{game_id}"
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :soldAt ;
+        rr:objectMap [
+            rr:template "http://www.semanticweb.org/videogame-ontology#store_{store_id}"
+        ]
+    ] .
+
+# Game → Tag  (:hasTag)
+:GameTagMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/game_tags.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#game_{game_id}"
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :hasTag ;
+        rr:objectMap [
+            rr:template "http://www.semanticweb.org/videogame-ontology#tag_{tag_id}"
+        ]
+    ] .
+
+# Developer → Game  (:develops)
+:DeveloperGameMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/developer_games.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#developer_{developer_id}"
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :develops ;
+        rr:objectMap [
+            rr:template "http://www.semanticweb.org/videogame-ontology#game_{game_id}"
+        ]
+    ] .
+
+# Publisher → Game  (:publishes)
+:PublisherGameMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/publisher_games.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#publisher_{publisher_id}"
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :publishes ;
+        rr:objectMap [
+            rr:template "http://www.semanticweb.org/videogame-ontology#game_{game_id}"
+        ]
+    ] .
+
+# Creator → Game  (:created)
+:CreatorGameMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/creator_games.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#creator_{creator_id}"
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :created ;
+        rr:objectMap [
+            rr:template "http://www.semanticweb.org/videogame-ontology#game_{game_id}"
+        ]
+    ] .
+
+# Creator → Role  (:hasRole)
+:CreatorRoleRelMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/creator_positions.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#creator_{creator_id}"
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :hasRole ;
+        rr:objectMap [
+            rr:template "http://www.semanticweb.org/videogame-ontology#role_{role_id}"
+        ]
+    ] .
+
+# Platform → ParentPlatform  (:onParentPlatform — canonical domain-correct triples)
+:PlatformParentMap a rr:TriplesMap ;
+    rml:logicalSource [
+        rml:source "processed/platform_parent_platform.csv" ;
+        rml:referenceFormulation ql:CSV
+    ] ;
+    rr:subjectMap [
+        rr:template "http://www.semanticweb.org/videogame-ontology#platform_{platform_id}"
+    ] ;
+    rr:predicateObjectMap [
+        rr:predicate :onParentPlatform ;
+        rr:objectMap [
+            rr:template "http://www.semanticweb.org/videogame-ontology#parentPlatform_{parent_platform_id}"
+        ]
+    ] .

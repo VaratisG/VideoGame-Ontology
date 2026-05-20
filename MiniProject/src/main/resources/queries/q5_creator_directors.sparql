@@ -1,0 +1,19 @@
+PREFIX : <http://www.semanticweb.org/videogame-ontology#>
+PREFIX schema: <https://schema.org/>
+
+# Q5 — Creators who worked as directors, with the games they directed
+# Demonstrates the :hasRole and :created object properties joining
+# Creator → CreatorRole and Creator → VideoGame.
+
+SELECT DISTINCT ?creatorName ?roleName ?gameName
+WHERE {
+    ?creator a :Creator ;
+             schema:name ?creatorName ;
+             :hasRole ?role ;
+             :created ?game .
+    ?role schema:name ?roleName .
+    ?game schema:name ?gameName .
+    FILTER (LCASE(?roleName) = "director")
+}
+ORDER BY ?creatorName ?gameName
+LIMIT 25

@@ -1,0 +1,15 @@
+PREFIX : <http://www.semanticweb.org/videogame-ontology#>
+PREFIX schema: <https://schema.org/>
+
+# Q7 — Number of games per genre, ordered by popularity
+# Demonstrates aggregation (COUNT + GROUP BY) across the
+# :hasGenre object property and the inverse :isGenreOf relationship.
+
+SELECT ?genreName (COUNT(DISTINCT ?game) AS ?gameCount)
+WHERE {
+    ?genre a :Genre ;
+           schema:name ?genreName .
+    ?game :hasGenre ?genre .
+}
+GROUP BY ?genreName
+ORDER BY DESC(?gameCount)
